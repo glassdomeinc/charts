@@ -36,3 +36,4 @@ jobs:
           CR_TOKEN: "${{ secrets.CR_TOKEN }}"
         with:
           skip_existing: true
+          packages_with_index: true
