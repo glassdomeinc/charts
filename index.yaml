@@ -1,0 +1,21 @@
+apiVersion: v1
+entries:
+  shellhub:
+  - apiVersion: v2
+    appVersion: v0.13.1
+    created: "2023-11-15T09:14:39.600106671Z"
+    dependencies:
+    - name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.16.3
+    - name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.15.4
+    description: Centralized SSH for the edge and cloud computing
+    digest: 15279a05b30ad3c5320007b70d74cef3c46fc68f0eff87b18b2a70ecc77ea3d3
+    name: shellhub
+    type: application
+    urls:
+    - https://github.com/glassdomeinc/charts/releases/download/shellhub-0.1.0/shellhub-0.1.0.tgz
+    version: 0.1.0
+generated: "2023-11-15T09:14:39.600115971Z"
