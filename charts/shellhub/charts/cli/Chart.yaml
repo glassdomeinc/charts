@@ -1,0 +1,6 @@
+apiVersion: v2
+name: cli
+description: CLI Service is the backend system for the scripts presented on bin here you can see the implementation of the functions to add, delete and modify data on the database.
+type: application
+version: 0.1.0
+appVersion: "v0.13.1"

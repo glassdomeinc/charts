@@ -1,0 +1,6 @@
+apiVersion: v2
+name: ssh
+description: SSH Service is responsible to handle incoming SSH connections and redirect to respective WebSocket tunnel connection.
+type: application
+version: 0.1.0
+appVersion: "v0.13.1"

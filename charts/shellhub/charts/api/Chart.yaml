@@ -1,0 +1,6 @@
+apiVersion: v2
+name: api
+description: API Service is responsible for processing API requests, including device admission, session management, authentication (both users and devices) and bridging WebSocket connections to SSH.
+type: application
+version: 0.1.0
+appVersion: "v0.13.1"

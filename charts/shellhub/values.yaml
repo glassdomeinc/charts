@@ -1,0 +1,59 @@
+api:
+  extraEnvVars:
+    - name: SHELLHUB_LOG_LEVEL
+      value: info
+
+cli:
+  extraEnvVars:
+    - name: SHELLHUB_LOG_LEVEL
+      value: info
+
+gateway:
+  extraEnvVars:
+    - name: SHELLHUB_LOG_LEVEL
+      value: info
+
+ssh:
+  extraEnvVars:
+    - name: SHELLHUB_LOG_LEVEL
+      value: info
+
+ui:
+  extraEnvVars:
+    - name: SHELLHUB_LOG_LEVEL
+      value: info
+
+mongodb:
+  architecture: replicaset
+  extraFlags:
+    - --bind_ip_all
+  auth:
+    usernames: [omnibus]
+    passwords: [omnibus]
+    databases: [main]
+    replicaSetKey: |
+      ARqUtKeRapgeBgZZ1pdvZYXJQR25du4Z0f5+lizigElCpmawSjuY8eSBENVSuNse
+      BD+JVDJctji+R+ofTh12wyFs38uVzNgVGIxPTrA2XcHakOIIDOQ6Lm/6w0DOd9z+
+      H3cP7SCMtNclt2oLDmYTNUOfHwXPiIUbd5ssaJRgk6np7YCKscsvaq4TvszKWFUR
+      /25CZqEx3pWQSScylntign2r2+R2EsuvD7GT14QGBejm/g5wALl1kI0kYKKzX8wB
+      PA5AVtzn0LAN45F7JlvTX4pXi1TBZBNq8FInGQ8nL05MWBSv5+mgIYjhjL8A7qvx
+      OjQBvTAxn+XvZfj32708Jt+WVWBB6lMynmCIK+54rANcp2UOS77g3kLgEWAndEci
+      rU7defnpOeHLnnfjU8uAUJE/mHOsJ/KhRbhDYmlRc3Nv8g+jzpdEKqk/KBXjVzrz
+      2g9iS7QEMPexAxmM2KIFkLs9KCJbXTMPun3r2dkCWtLKTVx0sTQwZtZNa4PrAVMp
+      1rTt5atc/0gmQnU+0HKhMw+u3g/x99mCYNVScRxmHzxb8HzCpzQGqf5qSdxP6Zho
+      GjiAX/WZqCxi2zeQRm7LOQcFDCwfQNe275MCjIMXLHBW8/PcQamKz3G70JKdGNYh
+      ovP+KLdUW/fXYkz8wqcuvxLYRflDSMaUXcQWuDOsElE2xewLBrsy1TtTuTlYTn8r
+      vbUPJ9DEOFXyie8WIjDbcgN5KYp4lS2kqfi6joQ5qELhbRWzFrc6d2T5OgjfObB1
+      SOMLJNUXumFuhHDiUHh9puUVA9H2Kc8VI2PvwMeWITijdMHs26+FHNHTmtRfp8to
+      5hMSzo6j/ixvvTFNsuyj20HUgW9vaWAjmClS3To1cPfp1oXelE8UXOH0bL+LYm4t
+      o6iFQqGzHvHLwyzJOIqqwWcQ4OGGP812UdfTSa9Ixuj0tXMQLBcMQmUi95AJZopx
+      nzyAmgkK35J9BYqG9JjCq6e26vGxsasg1QxhTnyzEphEcaXX
+
+redis:
+  architecture: standalone
+  auth:
+    enabled: false
+  master:
+    kind: Deployment
+    updateStrategy:
+      type: Recreate
