@@ -1,0 +1,371 @@
+NAME: glassdome-gateway-console
+LAST DEPLOYED: Thu Nov 16 19:16:52 2023
+NAMESPACE: default
+STATUS: pending-install
+REVISION: 1
+USER-SUPPLIED VALUES:
+{}
+
+COMPUTED VALUES:
+api:
+  affinity: {}
+  autoscaling:
+    enabled: false
+    maxReplicas: 100
+    minReplicas: 1
+    targetCPUUtilizationPercentage: 80
+  extraEnvVars:
+  - name: PORT
+    value: 80
+  fullnameOverride: ""
+  global: {}
+  image:
+    pullPolicy: IfNotPresent
+    repository: glassdomedev/glassdome-gateway-console-api
+    tag: ""
+  imagePullSecrets: []
+  ingress:
+    annotations: {}
+    className: ""
+    enabled: false
+    hosts:
+    - host: chart-example.local
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+    tls: []
+  nameOverride: ""
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext: {}
+  replicaCount: 1
+  resources: {}
+  securityContext: {}
+  service:
+    port: 80
+    type: ClusterIP
+  serviceAccount:
+    annotations: {}
+    automount: true
+    create: true
+    name: ""
+  tolerations: []
+  volumeMounts:
+  - mountPath: /data
+    name: data
+  volumes:
+  - hostPath:
+      path: /opt/glassdome-gateway-console
+      type: DirectoryOrCreate
+    name: data
+fullnameOverride: ""
+ingress:
+  annotations: {}
+  className: ""
+  enabled: true
+  hosts:
+  - host: glassdome-gateway-console.local
+  tls: []
+nameOverride: ""
+web:
+  affinity: {}
+  autoscaling:
+    enabled: false
+    maxReplicas: 100
+    minReplicas: 1
+    targetCPUUtilizationPercentage: 80
+  fullnameOverride: ""
+  global: {}
+  image:
+    pullPolicy: IfNotPresent
+    repository: glassdomedev/glassdome-gateway-console
+    tag: ""
+  imagePullSecrets: []
+  ingress:
+    annotations: {}
+    className: ""
+    enabled: false
+    hosts:
+    - host: chart-example.local
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+    tls: []
+  nameOverride: ""
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext: {}
+  replicaCount: 1
+  resources: {}
+  securityContext: {}
+  service:
+    port: 80
+    type: ClusterIP
+  serviceAccount:
+    annotations: {}
+    automount: true
+    create: true
+    name: ""
+  tolerations: []
+  volumeMounts: []
+  volumes: []
+
+HOOKS:
+---
+# Source: glassdome-gateway-console/charts/api/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "glassdome-gateway-console-api-test-connection"
+  labels:
+    helm.sh/chart: api-0.1.0
+    app.kubernetes.io/name: api
+    app.kubernetes.io/instance: glassdome-gateway-console
+    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['glassdome-gateway-console-api:80']
+  restartPolicy: Never
+---
+# Source: glassdome-gateway-console/charts/web/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "glassdome-gateway-console-web-test-connection"
+  labels:
+    helm.sh/chart: web-0.1.0
+    app.kubernetes.io/name: web
+    app.kubernetes.io/instance: glassdome-gateway-console
+    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['glassdome-gateway-console-web:80']
+  restartPolicy: Never
+MANIFEST:
+---
+# Source: glassdome-gateway-console/charts/api/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: glassdome-gateway-console-api
+  labels:
+    helm.sh/chart: api-0.1.0
+    app.kubernetes.io/name: api
+    app.kubernetes.io/instance: glassdome-gateway-console
+    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/managed-by: Helm
+automountServiceAccountToken: true
+---
+# Source: glassdome-gateway-console/charts/web/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: glassdome-gateway-console-web
+  labels:
+    helm.sh/chart: web-0.1.0
+    app.kubernetes.io/name: web
+    app.kubernetes.io/instance: glassdome-gateway-console
+    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/managed-by: Helm
+automountServiceAccountToken: true
+---
+# Source: glassdome-gateway-console/charts/api/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: glassdome-gateway-console-api
+  labels:
+    helm.sh/chart: api-0.1.0
+    app.kubernetes.io/name: api
+    app.kubernetes.io/instance: glassdome-gateway-console
+    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: api
+    app.kubernetes.io/instance: glassdome-gateway-console
+---
+# Source: glassdome-gateway-console/charts/web/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: glassdome-gateway-console-web
+  labels:
+    helm.sh/chart: web-0.1.0
+    app.kubernetes.io/name: web
+    app.kubernetes.io/instance: glassdome-gateway-console
+    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: web
+    app.kubernetes.io/instance: glassdome-gateway-console
+---
+# Source: glassdome-gateway-console/charts/api/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: glassdome-gateway-console-api
+  labels:
+    helm.sh/chart: api-0.1.0
+    app.kubernetes.io/name: api
+    app.kubernetes.io/instance: glassdome-gateway-console
+    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: api
+      app.kubernetes.io/instance: glassdome-gateway-console
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: api-0.1.0
+        app.kubernetes.io/name: api
+        app.kubernetes.io/instance: glassdome-gateway-console
+        app.kubernetes.io/version: "0.1.0"
+        app.kubernetes.io/managed-by: Helm
+    spec:
+      serviceAccountName: glassdome-gateway-console-api
+      securityContext:
+        {}
+      containers:
+        - name: api
+          securityContext:
+            {}
+          image: "glassdomedev/glassdome-gateway-console-api:0.1.0"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {}
+          volumeMounts:
+            - mountPath: /data
+              name: data
+          env:
+            - name: PORT
+              value: 80
+            - name: PORT
+              value: 80
+      volumes:
+        - hostPath:
+            path: /opt/glassdome-gateway-console
+            type: DirectoryOrCreate
+          name: data
+---
+# Source: glassdome-gateway-console/charts/web/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: glassdome-gateway-console-web
+  labels:
+    helm.sh/chart: web-0.1.0
+    app.kubernetes.io/name: web
+    app.kubernetes.io/instance: glassdome-gateway-console
+    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: web
+      app.kubernetes.io/instance: glassdome-gateway-console
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: web-0.1.0
+        app.kubernetes.io/name: web
+        app.kubernetes.io/instance: glassdome-gateway-console
+        app.kubernetes.io/version: "0.1.0"
+        app.kubernetes.io/managed-by: Helm
+    spec:
+      serviceAccountName: glassdome-gateway-console-web
+      securityContext:
+        {}
+      containers:
+        - name: web
+          securityContext:
+            {}
+          image: "glassdomedev/glassdome-gateway-console:0.1.0"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {}
+---
+# Source: glassdome-gateway-console/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: glassdome-gateway-console
+  labels:
+    helm.sh/chart: glassdome-gateway-console-0.1.0
+    app.kubernetes.io/name: glassdome-gateway-console
+    app.kubernetes.io/instance: glassdome-gateway-console
+    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  rules:
+    - host: "glassdome-gateway-console.local"
+      http:
+        paths:
+          - path: /api
+            backend:
+              service:
+                name: glassdome-gateway-console-api
+                port:
+                  number: 80
+          - path: /
+            backend:
+              service:
+                name: glassdome-gateway-console-web
+                port:
+                  number: 80
+
