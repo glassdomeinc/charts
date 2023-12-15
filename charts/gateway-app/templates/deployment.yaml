@@ -60,6 +60,10 @@ spec:
               value: {{ .Values.hostUsername }}
             - name: "HOST_PASSWORD"
               value: {{ .Values.hostPassword }}
+            - name: "HOST_ADDRESS"
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
