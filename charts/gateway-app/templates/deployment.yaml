@@ -55,6 +55,11 @@ spec:
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          env:
+            - name: "HOST_USERNAME"
+              value: {{ .Values.hostUsername }}
+            - name: "HOST_PASSWORD"
+              value: {{ .Values.hostPassword }}
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
