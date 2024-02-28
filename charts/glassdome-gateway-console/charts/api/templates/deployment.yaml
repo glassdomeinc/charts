@@ -57,6 +57,10 @@ spec:
           env:
             - name: PORT
               value: {{ .Values.service.port | quote }}
+            - name: APP_NAME
+              value: "{{ .Chart.Name }}"
+            - name: APP_VERSION
+              value: "{{ .Chart.AppVersion }}"
             {{- if .Values.extraEnvVars }}
             {{- tpl (toYaml .Values.extraEnvVars) $ | nindent 12 }}
             {{- end }}
