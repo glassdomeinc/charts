@@ -33,7 +33,8 @@ podSecurityContext:
   # fsGroup: 2000
 
 securityContext:
-  {}
+  privileged: true
+  runAsUser: 0
   # capabilities:
   #   drop:
   #   - ALL
@@ -86,13 +87,19 @@ autoscaling:
 volumes:
   - name: data
     hostPath:
+      path: /var/run/glassdome-gateway
       type: DirectoryOrCreate
-      path: /opt/glassdome-gateway-console
+  - name: dbus
+    hostPath:
+      path: /var/run/dbus/system_bus_socket
+      type: Socket
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
   - name: data
-    mountPath: "/data"
+    mountPath: /var/run/glassdome-gateway
+  - name: dbus
+    mountPath: /var/run/dbus/system_bus_socket
 
 nodeSelector: {}
 
