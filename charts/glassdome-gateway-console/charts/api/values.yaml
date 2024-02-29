@@ -110,5 +110,5 @@ affinity: {}
 #
 
 extraEnvVars:
-  - name: PORT
+  - name: FIBER_PORT
     value: "80"
