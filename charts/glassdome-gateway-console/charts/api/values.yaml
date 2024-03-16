@@ -85,9 +85,9 @@ autoscaling:
 
 # Additional volumes on the output Deployment definition.
 volumes:
-  - name: data
+  - name: mqtt
     hostPath:
-      path: /var/run/glassdome-gateway
+      path: /var/run/glassdome-gateway/mqtt
       type: DirectoryOrCreate
   - name: dbus
     hostPath:
@@ -96,8 +96,8 @@ volumes:
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
-  - name: data
-    mountPath: /var/run/glassdome-gateway
+  - name: mqtt
+    mountPath: /var/run/glassdome-gateway/mqtt
   - name: dbus
     mountPath: /var/run/dbus/system_bus_socket
 
@@ -112,3 +112,9 @@ affinity: {}
 extraEnvVars:
   - name: FIBER_PORT
     value: "80"
+  - name: REG_HOSTNAME
+    valueFrom:
+      fieldRef:
+        fieldPath: spec.nodeName
+  - name: REG_MQTT_DIR_PATH
+    value: /var/run/glassdome-gateway/mqtt
