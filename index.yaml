@@ -23,6 +23,16 @@ entries:
     version: 0.1.0
   glassdome-gateway-console:
   - apiVersion: v2
+    appVersion: 0.2.0
+    created: "2024-03-18T00:17:28.425872931Z"
+    description: Glassdome Gateway Console
+    digest: 9522fcf9ace50f1771418e1194c9d0f32f65c893150081861813e3159b92b1aa
+    name: glassdome-gateway-console
+    type: application
+    urls:
+    - https://github.com/glassdomeinc/charts/releases/download/glassdome-gateway-console-0.2.0/glassdome-gateway-console-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     appVersion: 0.1.0
     created: "2024-02-29T09:17:40.562298039Z"
     description: Glassdome Gateway Console
@@ -60,4 +70,4 @@ entries:
     urls:
     - https://github.com/glassdomeinc/charts/releases/download/shellhub-0.1.0/shellhub-0.1.0.tgz
     version: 0.1.0
-generated: "2024-02-29T09:17:40.562311965Z"
+generated: "2024-03-18T00:17:28.425891766Z"
