@@ -51,23 +51,37 @@ spec:
           #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
           volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
+            - name: dev
+              mountPath: /dev
+            - name: mqtt-config
+              mountPath: {{ .Values.mqttConfigPath }}
+            - name: mqtt-file-queue
+              mountPath: {{ .Values.mqttFileQueuePath }}
+            - name: mqtt-file-store
+              mountPath: {{ .Values.mqttFileStorePath }}
           env:
-            - name: "HOST_USERNAME"
-              value: {{ .Values.hostUsername }}
-            - name: "HOST_PASSWORD"
-              value: {{ .Values.hostPassword }}
-            - name: "HOST_ADDRESS"
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.hostIP
-      {{- with .Values.volumes }}
+            - name: MQTT_CONFIG_PATH
+              value: {{ .Values.mqttConfigPath }}
+            - name: MQTT_FILE_QUEUE_PATH
+              value: {{ .Values.mqttFileQueuePath }}
+            - name: MQTT_FILE_STORE_PATH
+              value: {{ .Values.mqttFileStorePath }}
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        - name: dev
+          hostPath:
+            path: /dev
+        - name: mqtt-config
+          hostPath:
+            path: {{ .Values.mqttConfigPath }}
+        - name: mqtt-file-queue
+          hostPath:
+            path: {{ .Values.mqttFileQueuePath }}
+            type: DirectoryOrCreate
+        - name: mqtt-file-store
+          hostPath:
+            path: {{ .Values.mqttFileStorePath }}
+            type: DirectoryOrCreate
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -88,41 +88,27 @@ autoscaling:
 
 # Additional volumes on the output Deployment definition.
 volumes:
+  []
   # - name: foo
   #   secret:
   #     secretName: mysecret
   #     optional: false
-  - name: dev
-    hostPath:
-      path: /dev
-  - name: mqtt-config
-    hostPath:
-      path: /var/run/glassdome-gateway/mqtt/config
-  - name: mqtt-file-queue
-    hostPath:
-      path: /var/run/glassdome-gateway/mqtt/queue
-      type: DirectoryOrCreate
-  - name: mqtt-file-store
-    hostPath:
-      path: /var/run/glassdome-gateway/mqtt/store
-      type: DirectoryOrCreate
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
+  []
   # - name: foo
   #   mountPath: "/etc/foo"
   #   readOnly: true
-  - name: dev
-    mountPath: /dev
-  - name: mqtt-config
-    mountPath: /var/run/glassdome-gateway/mqtt/config
-  - name: mqtt-file-queue
-    mountPath: /var/run/glassdome-gateway/mqtt/queue
-  - name: mqtt-file-store
-    mountPath: /var/run/glassdome-gateway/mqtt/store
 
 nodeSelector: {}
 
 tolerations: []
 
 affinity: {}
+
+#
+
+mqttConfigPath: /var/run/glassdome-gateway/mqtt/config
+mqttFileQueuePath: /var/run/glassdome-gateway/mqtt/queue
+mqttFileStorePath: /var/run/glassdome-gateway/mqtt/store
