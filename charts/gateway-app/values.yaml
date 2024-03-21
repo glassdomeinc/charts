@@ -10,7 +10,8 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
-imagePullSecrets: []
+imagePullSecrets:
+  - name: glassdomedev
 nameOverride: ""
 fullnameOverride: ""
 
@@ -94,6 +95,17 @@ volumes:
   - name: dev
     hostPath:
       path: /dev
+  - name: mqtt-config
+    hostPath:
+      path: /var/run/glassdome-gateway/mqtt/config
+  - name: mqtt-file-queue
+    hostPath:
+      path: /var/run/glassdome-gateway/mqtt/queue
+      type: DirectoryOrCreate
+  - name: mqtt-file-store
+    hostPath:
+      path: /var/run/glassdome-gateway/mqtt/store
+      type: DirectoryOrCreate
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
@@ -102,6 +114,12 @@ volumeMounts:
   #   readOnly: true
   - name: dev
     mountPath: /dev
+  - name: mqtt-config
+    mountPath: /var/run/glassdome-gateway/mqtt/config
+  - name: mqtt-file-queue
+    mountPath: /var/run/glassdome-gateway/mqtt/queue
+  - name: mqtt-file-store
+    mountPath: /var/run/glassdome-gateway/mqtt/store
 
 nodeSelector: {}
 
