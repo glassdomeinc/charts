@@ -94,13 +94,6 @@ volumes:
   - name: dev
     hostPath:
       path: /dev
-  - name: dbus
-    hostPath:
-      path: /var/run/dbus
-  - name: secret
-    hostPath:
-      path: /usr/local/lib/auth
-      type: DirectoryOrCreate
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
@@ -109,10 +102,6 @@ volumeMounts:
   #   readOnly: true
   - name: dev
     mountPath: /dev
-  - name: dbus
-    mountPath: /var/run/dbus
-  - name: secret
-    mountPath: /ko-app/auth
 
 nodeSelector: {}
 
