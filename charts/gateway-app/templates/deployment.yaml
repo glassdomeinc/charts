@@ -54,15 +54,17 @@ spec:
           volumeMounts:
             - name: dev
               mountPath: /dev
-            - name: mqtt-config
-              mountPath: {{ .Values.mqttConfigPath }}
-            - name: mqtt-file-queue
+            - name: mqtt
+              mountPath: {{ .Values.mqttPath }}
+            - name: mqtt
               mountPath: {{ .Values.mqttFileQueuePath }}
-            - name: mqtt-file-store
+              subPath: {{ .Values.mqttFileQueueSubPath }}
+            - name: mqtt
               mountPath: {{ .Values.mqttFileStorePath }}
+              subPath: {{ .Values.mqttFileStoreSubPath }}
           env:
-            - name: MQTT_CONFIG_PATH
-              value: {{ .Values.mqttConfigPath }}
+            - name: MQTT_DIR_PATH
+              value: {{ .Values.mqttPath }}
             - name: MQTT_FILE_QUEUE_PATH
               value: {{ .Values.mqttFileQueuePath }}
             - name: MQTT_FILE_STORE_PATH
@@ -71,16 +73,10 @@ spec:
         - name: dev
           hostPath:
             path: /dev
-        - name: mqtt-config
+            type: Directory
+        - name: mqtt
           hostPath:
-            path: {{ .Values.mqttConfigPath }}
-        - name: mqtt-file-queue
-          hostPath:
-            path: {{ .Values.mqttFileQueuePath }}
-            type: DirectoryOrCreate
-        - name: mqtt-file-store
-          hostPath:
-            path: {{ .Values.mqttFileStorePath }}
+            path: {{ .Values.mqttPath }}
             type: DirectoryOrCreate
       {{- with .Values.nodeSelector }}
       nodeSelector:

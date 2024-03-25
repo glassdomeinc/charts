@@ -109,6 +109,8 @@ affinity: {}
 
 #
 
-mqttConfigPath: /var/run/glassdome-gateway/mqtt/config
+mqttPath: /var/run/glassdome-gateway/mqtt
 mqttFileQueuePath: /var/run/glassdome-gateway/mqtt/queue
 mqttFileStorePath: /var/run/glassdome-gateway/mqtt/store
+mqttFileQueueSubPath: queue
+mqttFileStoreSubPath: store
