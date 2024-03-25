@@ -51,23 +51,33 @@ spec:
           #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
           volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
+            - name: dev
+              mountPath: /dev
+            - name: mqtt
+              mountPath: {{ .Values.mqttPath }}
+            - name: mqtt
+              mountPath: {{ .Values.mqttFileQueuePath }}
+              subPath: {{ .Values.mqttFileQueueSubPath }}
+            - name: mqtt
+              mountPath: {{ .Values.mqttFileStorePath }}
+              subPath: {{ .Values.mqttFileStoreSubPath }}
           env:
-            - name: "HOST_USERNAME"
-              value: {{ .Values.hostUsername }}
-            - name: "HOST_PASSWORD"
-              value: {{ .Values.hostPassword }}
-            - name: "HOST_ADDRESS"
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.hostIP
-      {{- with .Values.volumes }}
+            - name: MQTT_DIR_PATH
+              value: {{ .Values.mqttPath }}
+            - name: MQTT_FILE_QUEUE_PATH
+              value: {{ .Values.mqttFileQueuePath }}
+            - name: MQTT_FILE_STORE_PATH
+              value: {{ .Values.mqttFileStorePath }}
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        - name: dev
+          hostPath:
+            path: /dev
+            type: Directory
+        - name: mqtt
+          hostPath:
+            path: {{ .Values.mqttPath }}
+            type: DirectoryOrCreate
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

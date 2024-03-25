@@ -10,7 +10,8 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
-imagePullSecrets: []
+imagePullSecrets:
+  - name: glassdomedev
 nameOverride: ""
 fullnameOverride: ""
 
@@ -87,35 +88,29 @@ autoscaling:
 
 # Additional volumes on the output Deployment definition.
 volumes:
+  []
   # - name: foo
   #   secret:
   #     secretName: mysecret
   #     optional: false
-  - name: dev
-    hostPath:
-      path: /dev
-  - name: dbus
-    hostPath:
-      path: /var/run/dbus
-  - name: secret
-    hostPath:
-      path: /usr/local/lib/auth
-      type: DirectoryOrCreate
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
+  []
   # - name: foo
   #   mountPath: "/etc/foo"
   #   readOnly: true
-  - name: dev
-    mountPath: /dev
-  - name: dbus
-    mountPath: /var/run/dbus
-  - name: secret
-    mountPath: /ko-app/auth
 
 nodeSelector: {}
 
 tolerations: []
 
 affinity: {}
+
+#
+
+mqttPath: /var/run/glassdome-gateway/mqtt
+mqttFileQueuePath: /var/run/glassdome-gateway/mqtt/queue
+mqttFileStorePath: /var/run/glassdome-gateway/mqtt/store
+mqttFileQueueSubPath: queue
+mqttFileStoreSubPath: store
