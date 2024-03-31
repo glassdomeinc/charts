@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gateway-console
+  namespace: argocd
+  labels:
+    name: gateway-console
+spec:
+  project: gateway
+
+  source:
+    repoURL: https://charts.glassdome.com/
+    targetRevision: "*"
+    chart: glassdome-gateway-console
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: glassdome-gateway-console
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
