@@ -31,6 +31,17 @@ entries:
     urls:
     - https://github.com/glassdomeinc/charts/releases/download/gateway-app-0.1.0/gateway-app-0.1.0.tgz
     version: 0.1.0
+  gateway-argocd:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-04-01T00:07:51.76408564Z"
+    description: Gateway Argo CD
+    digest: 2edec4be127bcbe7e4f229b5e61b3ce739e44550e455712c688a04a06f335315
+    name: gateway-argocd
+    type: application
+    urls:
+    - https://github.com/glassdomeinc/charts/releases/download/gateway-argocd-0.1.0/gateway-argocd-0.1.0.tgz
+    version: 0.1.0
   glassdome-gateway-console:
   - apiVersion: v2
     appVersion: 0.2.0
@@ -80,4 +91,4 @@ entries:
     urls:
     - https://github.com/glassdomeinc/charts/releases/download/shellhub-0.1.0/shellhub-0.1.0.tgz
     version: 0.1.0
-generated: "2024-03-25T00:47:13.849647012Z"
+generated: "2024-04-01T00:07:51.764132818Z"
