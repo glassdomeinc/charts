@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gateway-app
+  namespace: argocd
+  labels:
+    name: gateway-app
+spec:
+  project: gateway
+
+  source:
+    repoURL: https://charts.glassdome.com/
+    targetRevision: "*"
+    chart: gateway-app
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gateway-app
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
